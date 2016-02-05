@@ -1,7 +1,7 @@
-var path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
+const path = require('path');
+const HtmlwebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -9,18 +9,16 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
-var common = {
+process.env.BABEL_ENV = TARGET;
+
+const common = {
   entry: PATHS.app,
-  // Given webpack-dev-server runs in-memory, we can drop
-  // `output`. We'll look into it again once we get to the
-  // build chapter.
-  /*output: {
-    path: PATHS.build,
-    filename: 'bundle.js'
-  },*/  // Add resolve.extensions. '' is needed to allow imports an extension
-  // Note the .'s before extensions!!! Without those matching will fail
   resolve: {
     extensions: ['', '.js', '.jsx']
+  },
+  output: {
+    path: PATHS.build,
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -29,19 +27,18 @@ var common = {
         loaders: ['style', 'css'],
         include: PATHS.app
       },
-      // Set up jsx. This accepts js too thanks to regex.
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loaders: ['babel?cacheDirectory'],
         include: PATHS.app
       }
     ]
   },
   plugins: [
-    // Important! move HotModuleReplacementPlugin below
-    //new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
-      title: 'Kanban app'
+      template: 'node_modules/html-webpack-template/index.html',
+      title: 'Kanban app',
+      appMountId: 'app'
     })
   ]
 };
@@ -55,10 +52,11 @@ if(TARGET === 'start' || !TARGET) {
       inline: true,
       progress: true,
 
-      // Display only errors to reduce the amount of output.
+      // display only errors to reduce the amount of output
       stats: 'errors-only',
 
-      // Parse host and port from env so this is easy to customize.
+      // parse host and port from env so this is easy
+      // to customize
       host: process.env.HOST,
       port: process.env.PORT
     },
@@ -66,4 +64,8 @@ if(TARGET === 'start' || !TARGET) {
       new webpack.HotModuleReplacementPlugin()
     ]
   });
+}
+
+if(TARGET === 'build') {
+  module.exports = merge(common, {});
 }
