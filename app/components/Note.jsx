@@ -20,15 +20,29 @@ export default class Note extends React.Component {
     renderEdit = () => {
         //Deal with blur and input handers. These map to DOM events.
         return <input type="text"
+            ref={(e) => e ? e.selectionStart = this.props.task.length : null}
             autoFocus={true}
             placeholder={this.props.task}
             onBlur={this.finishEdit}
-            onKeyPress={this.checkEnter} />
+            onKeyPress={this.checkEnter} />;
     };
     renderNote = () => {
         //If the user clicks a normal note, trigger editing logic.
-        return <div onClick={this.edit}>{this.props.task}</div>;
+        // return <div onClick={this.edit}>{this.props.task}</div>;
+        const onDelete = this.props.onDelete;
+
+        return (
+            <div onClick={this.edit}>
+                <span>{this.props.task}</span>
+                {onDelete ? this.renderDelete() : null }
+            </div>
+        )
     };
+
+    renderDelete = () => {
+        return <button onClick={this.props.onDelete}>x</button>;
+    };
+
     edit = () => {
         //Enter edit mode.
         this.setState({
