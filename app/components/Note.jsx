@@ -14,7 +14,7 @@ export default class Note extends React.Component {
         if(this.state.editing){
             return this.renderEdit();
         }
-
+        //render Note
         return this.renderNote();
     }
     renderEdit = () => {
