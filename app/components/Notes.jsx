@@ -4,8 +4,8 @@ import Note from './Note.jsx';
 // export default ({notes}) => {
 export default ({notes, onEdit, onDelete}) => {
     return (
-        <ul>{notes.map(note =>
-            <li key={note.id}>
+        <ul className="notes">{notes.map(note =>
+            <li className="note" key={note.id}>
                 <Note
                     task={note.task}
                     onEdit={onEdit.bind(null, note.id)}
