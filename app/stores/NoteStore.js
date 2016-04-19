@@ -20,7 +20,7 @@ class NoteStore {
 	}
 
 	update(UpdatedNote){
-		const notes = this.notes.map(note => 
+		const notes = this.notes.map(note => {
 			if(note.id === UpdatedNote.id){
 				return Object.assign({}, note, UpdatedNote)
 			}
