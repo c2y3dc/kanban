@@ -22,7 +22,6 @@ export default class App extends React.Component {
   deleteNote = (id, e) => {
     // Avoid bubbling to edit
     e.stopPropagation();
-
     NoteActions.delete(id)
   };
 
