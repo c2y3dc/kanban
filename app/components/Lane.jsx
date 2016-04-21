@@ -27,4 +27,20 @@ export default class Lane extends Component {
 			</div>
 		);
 	}
+	editNote(id, task) {
+		// Don't modify if trying to set an empty value
+		if(!task.trim()) {
+			return
+		}
+		NoteActions.update({id,task})
+	}
+	addNote(){
+		NoteActions.create({task: 'New task'})
+	}
+	deleteNote(id, e){
+		//Avoid bubbling to edit
+		e.stopPropagation()
+
+		NoteActions.delete(id)
+	}
 }
