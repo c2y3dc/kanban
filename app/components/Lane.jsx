@@ -2,7 +2,7 @@ import AltContainer from 'alt-container'
 import React, { Component } from 'react'
 import Notes from './Notes'
 import NoteActions from '../actions/NoteActions'
-import NoteStore from '../actions/NoteStore'
+import NoteStore from '../stores/NoteStore'
 
 export default class Lane extends Component {
 	render() {
@@ -32,7 +32,7 @@ export default class Lane extends Component {
 		if(!task.trim()) {
 			return
 		}
-		NoteActions.update({id,task})
+		NoteActions.update({id ,task})
 	}
 	addNote(){
 		NoteActions.create({task: 'New task'})
