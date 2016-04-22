@@ -44,9 +44,9 @@ class NoteStore {
 	getNotesByIds(ids) {
 		return (ids || [])
 			.map(id => this.notes
-			.filter(note => note.id === id)
+			.filter(note => note.id === id))
 			.filter(a => a.length)
-			.map(a => a[0]))
+			.map(a => a[0])
 	}
 }
 
