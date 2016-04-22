@@ -22,7 +22,7 @@ class LaneStore {
 		})
 	}
 
-	attachToLane({laneId, noteId}){
+	attachToLane({ laneId, noteId }){
 		const lanes = this.lanes.map(lane => {
 			if(lane.id === laneId){
 				if(lane.notes.includes(noteId)) {
@@ -30,6 +30,18 @@ class LaneStore {
 				}else{
 					lane.notes.push(noteId)
 				}
+			}
+			return lane
+		})
+		this.setState({ lanes })
+	}
+
+	detachFromLane({ laneId, noteId }){
+		const lanes = this.lanes.map( lane => {
+			if(lane.id === laneId){
+				lane.notes = lane.notes.filter( note => {
+					return note.id !== noteId
+				})
 			}
 			return lane
 		})
