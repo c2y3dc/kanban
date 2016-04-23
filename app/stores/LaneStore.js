@@ -16,9 +16,26 @@ class LaneStore {
 
 		//default to empty array if notes not passed
 		lane.notes = lane.notes || []
+		// lane.editing = true //defaults to editing state on creation
 
 		this.setState({
 			lanes: lanes.concat(lane)
+		})
+	}
+
+	update(updatedLane){
+		const lanes = this.lanes.map(lane => {
+			if(lane.id === updatedLane.id){
+				return Object.assign({}, lane, updatedLane)
+			}
+			return lane
+		})
+		this.setState({lanes})
+	}
+
+	delete(id){
+		this.setState({
+			lanes: this.lanes.filter(lane => lane.id !== id)
 		})
 	}
 
