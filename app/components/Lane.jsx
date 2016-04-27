@@ -5,12 +5,28 @@ import NoteActions from '../actions/NoteActions'
 import NoteStore from '../stores/NoteStore'
 import LaneActions from '../actions/LaneActions'
 import Editable from './Editable'
+import {DropTarget} from 'react-dnd'
+import ItemTypes from '../constants/itemTypes'
+
+const noteTarget = {
+	hover( targetProps, monitor ){
+		const targetId = targetProps.lane.id
+		const sourceProps = monitor.getItem()
+		const sourceId = sourceProps.id
+		
+		console.log(`source: ${sourceId}, target: ${targetId}`)
+	}
+}
+
+@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+	connectDropTarget: connect.dropTarget()
+}))
 
 export default class Lane extends Component {
 	render() {
-		const { lane, ...props } = this.props
+		const { connectDropTarget, lane,...props } = this.props
 
-		return (
+		return connectDropTarget(
 			<div {...props}>
 				<div className="lane-header" onClick={this.activateLaneEdit}>
 					<div className="lane-add-note">
