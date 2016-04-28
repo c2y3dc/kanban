@@ -14,7 +14,10 @@ const noteTarget = {
 		const sourceId = sourceProps.id
 
 		if(!targetProps.lane.notes.length){
-			console.log(`source: ${sourceId}, target: ${targetProps}`)
+			LaneActions.attachToLane({
+				laneId: targetProps.lane.id,
+				noteId: sourceId
+			})
 		}
 	}
 }
