@@ -12,7 +12,7 @@ export default ({notes, onValueClick, onEdit, onDelete}) => {
         editing={note.editing}
         onMove={LaneActions.moveNote}>
         <Editable
-          editing ={note.editing}
+          editing={note.editing}
           value={note.task}
           onValueClick={onValueClick.bind(null, note.id)}
           onEdit={onEdit.bind(null, note.id)}
